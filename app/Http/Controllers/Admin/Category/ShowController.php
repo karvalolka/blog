@@ -5,14 +5,13 @@ namespace App\Http\Controllers\Admin\Category;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 
-class CategoryController extends Controller
+class ShowController extends Controller
 {
     /**
      * Handle the incoming request.
      */
-    public function __invoke()
+    public function __invoke(Category $category)
     {
-        $categories = Category::all();
-        return view('admin.categories.index', compact('categories'));
+        return view('admin.categories.show', compact('category'));
     }
 }
