@@ -28,7 +28,7 @@
                     <div class="col-12">
                         Категории
                     </div>
-                    <div class="col-1">
+                    <div class="col-2">
                         <a href='{{route('admin.category.create')}}' class="btn btn-block bg-gradient-primary">Добавить</a>
                     </div>
                     <!-- ./col -->
