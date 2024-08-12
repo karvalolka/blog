@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\Category\CategoryController;
 use App\Http\Controllers\Admin\Category\CreateController;
+use App\Http\Controllers\Admin\Category\DeleteController;
 use App\Http\Controllers\Admin\Category\EditController;
 use App\Http\Controllers\Admin\Category\ShowController;
 use App\Http\Controllers\Admin\Category\StoreController;
@@ -35,6 +36,7 @@ Route::prefix('admin')->group(function () {
         Route::get('/{category}', [ShowController::class, '__invoke'])->name('admin.category.show');
         Route::get('/{category}/edit', [EditController::class, '__invoke'])->name('admin.category.edit');
         Route::patch('/{category}', [UpdateController::class, '__invoke'])->name('admin.category.update');
+        Route::delete('/{category}', [DeleteController::class, '__invoke'])->name('admin.category.delete');
 
     });
 });
