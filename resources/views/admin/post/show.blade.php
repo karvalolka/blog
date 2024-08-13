@@ -9,7 +9,7 @@
                     <div class="col-sm-6 d-flex align-items-center">
                         <h1 class="m-0 mr-2">{{$post->title}}</h1>
                         <a href="{{route('admin.post.edit', $post->id)}}" class="text-success"><i class="fas fa-cat"></i></a>
-                        <form action="{{route('admin.ost.delete', $post->id)}}"
+                        <form action="{{route('admin.post.delete', $post->id)}}"
                               method="POST">
                             @csrf
                             @method('DELETE')
