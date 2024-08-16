@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin\Post;
 use App\Http\Controllers\Controller;
 use App\Models\Post;
 
-class PostController extends Controller
+class PostController extends BaseController
 {
     /**
      * Handle the incoming request.
