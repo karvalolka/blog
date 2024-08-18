@@ -11,7 +11,7 @@
                     </div><!-- /.col -->
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="#">Home</a></li>
+                            <li class="breadcrumb-item"><a href="{{route('admin.home')}}">Home</a></li>
                             <li class="breadcrumb-item active">Dashboard v1</li>
                         </ol>
                     </div><!-- /.col -->
@@ -34,13 +34,13 @@
                                        value="{{$post->title}}"
                                 >
                                 @error('title')
-                                <div class="text-danger mb-3">Это поле необходимо заполнить</div>
+                                <div class="text-danger mb-3">{{$message}}</div>
                                 @enderror
                             </div>
                             <div class="form-group">
                                 <textarea id="summernote" name="content">{{$post->content}}</textarea>
                                 @error('content')
-                                <div class="text-danger mb-3">Это поле необходимо заполнить</div>
+                                <div class="text-danger mb-3">{{$message}}</div>
                                 @enderror
                             </div>
                             <div class="form-group w-50">
@@ -58,7 +58,7 @@
                                     </div>
                                 </div>
                                 @error('preview_image')
-                                <div class="text-danger mb-3">Это поле необходимо заполнить</div>
+                                <div class="text-danger mb-3">{{$message}}</div>
                                 @enderror
                             </div>
                             <div class="form-group w-50">
@@ -76,7 +76,7 @@
                                     </div>
                                 </div>
                                 @error('main_image')
-                                <div class="text-danger mb-3">Это поле необходимо заполнить</div>
+                                <div class="text-danger mb-3">{{$message}}</div>
                                 @enderror
                             </div>
                             <div class="form-group w-50">

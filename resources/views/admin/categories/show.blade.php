@@ -20,7 +20,7 @@
                     </div><!-- /.col -->
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="#">Home</a></li>
+                            <li class="breadcrumb-item"><a href="{{route('admin.home')}}">Home</a></li>
                             <li class="breadcrumb-item active">Dashboard v1</li>
                         </ol>
                     </div><!-- /.col -->
@@ -42,10 +42,10 @@
                                 <tbody>
                                 <tr>
                                     <td>ID</td>
-                                    <td>{{$category->id}}</td>
+                                    <td>Название</td>
                                 </tr>
                                 <tr>
-                                    <td>Название</td>
+                                    <td>{{$category->id}}</td>
                                     <td>{{$category->title}}</td>
                                 </tr>
                                 </tbody>

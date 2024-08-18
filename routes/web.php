@@ -8,6 +8,14 @@ use App\Http\Controllers\Admin\Post\{PostController,
     StoreController as PostStoreController,
     UpdateController as PostUpdateController
 };
+use App\Http\Controllers\Admin\User\{UserController,
+    CreateController as UserCreateController,
+    DeleteController as UserDeleteController,
+    EditController as UserEditController,
+    ShowController as UserShowController,
+    StoreController as UserStoreController,
+    UpdateController as UserUpdateController
+};
 use App\Http\Controllers\Admin\Category\{CategoryController,
     CreateController,
     DeleteController,
@@ -44,8 +52,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [IndexController::class, '__invoke']);
 //});
 
-Route::prefix('admin')->group(function () {
-    Route::get('/', [AdminIndexController::class, '__invoke']);
+Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
+    Route::get('/', [AdminIndexController::class, '__invoke'])->name('admin.home');
 
     Route::prefix('posts')->group(function () {
         Route::get('/', [PostController::class, '__invoke'])->name('admin.post.index');
@@ -75,6 +83,15 @@ Route::prefix('admin')->group(function () {
         Route::get('/{tag}/edit', [TagEditController::class, '__invoke'])->name('admin.tag.edit');
         Route::patch('/{tag}', [TagUpdateController::class, '__invoke'])->name('admin.tag.update');
         Route::delete('/{tag}', [TagDeleteController::class, '__invoke'])->name('admin.tag.delete');
+    });
+    Route::prefix('users')->group(function () {
+        Route::get('/', [UserController::class, '__invoke'])->name('admin.user.index');
+        Route::get('/create', [UserCreateController::class, '__invoke'])->name('admin.user.create');
+        Route::post('/', [UserStoreController::class, '__invoke'])->name('admin.user.store');
+        Route::get('/{user}', [UserShowController::class, '__invoke'])->name('admin.user.show');
+        Route::get('/{user}/edit', [UserEditController::class, '__invoke'])->name('admin.user.edit');
+        Route::patch('/{user}', [UserUpdateController::class, '__invoke'])->name('admin.user.update');
+        Route::delete('/{user}', [UserDeleteController::class, '__invoke'])->name('admin.user.delete');
     });
 });
 
