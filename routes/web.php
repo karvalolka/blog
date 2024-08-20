@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Admin\Post\{PostController,
     CreateController as PostCreateController,
     DeleteController as PostDeleteController,
@@ -50,9 +51,8 @@ use Illuminate\Support\Facades\Route;
 
 //Route::group(['namespace' => 'Main'], function () {
 Route::get('/', [IndexController::class, '__invoke']);
-//});
 
-Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
+Route::prefix('admin')->middleware(['auth', 'admin', 'verified'])->group(function () {
     Route::get('/', [AdminIndexController::class, '__invoke'])->name('admin.home');
 
     Route::prefix('posts')->group(function () {
@@ -95,4 +95,4 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
     });
 });
 
-Auth::routes();
+Auth::routes(['verify' => true]);
