@@ -6,6 +6,15 @@
             <!-- Add icons to the links using the .nav-icon class
                  with font-awesome or any other icon font library -->
             <li class="nav-item">
+                <a href="{{route('admin.home')}}" class="nav-link">
+                    <i class="nav-icon fas fa-suitcase-rolling"></i>
+                    <p>
+                        Главная
+                    </p>
+                </a>
+            </li>
+
+            <li class="nav-item">
                 <a href="{{route('admin.user.index')}}" class="nav-link">
                     <i class="nav-icon fas fa-synagogue"></i>
                     <p>

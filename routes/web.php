@@ -1,22 +1,6 @@
 <?php
 
-use App\Http\Controllers\Auth\LoginController;
-use App\Http\Controllers\Admin\Post\{PostController,
-    CreateController as PostCreateController,
-    DeleteController as PostDeleteController,
-    EditController as PostEditController,
-    ShowController as PostShowController,
-    StoreController as PostStoreController,
-    UpdateController as PostUpdateController
-};
-use App\Http\Controllers\Admin\User\{UserController,
-    CreateController as UserCreateController,
-    DeleteController as UserDeleteController,
-    EditController as UserEditController,
-    ShowController as UserShowController,
-    StoreController as UserStoreController,
-    UpdateController as UserUpdateController
-};
+use App\Http\Controllers\Personal\Liked\DeleteIndexController;
 use App\Http\Controllers\Admin\Category\{CategoryController,
     CreateController,
     DeleteController,
@@ -25,16 +9,35 @@ use App\Http\Controllers\Admin\Category\{CategoryController,
     StoreController,
     UpdateController
 };
-use App\Http\Controllers\Admin\Tag\{TagController,
-    CreateController as TagCreateController,
+use App\Http\Controllers\Admin\Main\AdminIndexController;
+use App\Http\Controllers\Admin\Post\{CreateController as PostCreateController,
+    DeleteController as PostDeleteController,
+    EditController as PostEditController,
+    PostController,
+    ShowController as PostShowController,
+    StoreController as PostStoreController,
+    UpdateController as PostUpdateController
+};
+use App\Http\Controllers\Admin\Tag\{CreateController as TagCreateController,
     DeleteController as TagDeleteController,
     EditController as TagEditController,
     ShowController as TagShowController,
     StoreController as TagStoreController,
+    TagController,
     UpdateController as TagUpdateController
 };
-use App\Http\Controllers\Admin\Main\AdminIndexController;
+use App\Http\Controllers\Admin\User\{CreateController as UserCreateController,
+    DeleteController as UserDeleteController,
+    EditController as UserEditController,
+    ShowController as UserShowController,
+    StoreController as UserStoreController,
+    UpdateController as UserUpdateController,
+    UserController
+};
 use App\Http\Controllers\Main\IndexController;
+use App\Http\Controllers\Personal\Comment\CommentIndexController;
+use App\Http\Controllers\Personal\Liked\LikedIndexController;
+use App\Http\Controllers\Personal\Main\PersonalIndexController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -51,6 +54,17 @@ use Illuminate\Support\Facades\Route;
 
 //Route::group(['namespace' => 'Main'], function () {
 Route::get('/', [IndexController::class, '__invoke']);
+
+Route::prefix('personal')->middleware(['auth', 'verified'])->group(function () {
+    Route::get('/', [PersonalIndexController::class, '__invoke'])->name('personal.home');
+    Route::prefix('liked')->group(function () {
+        Route::get('/', [LikedIndexController::class, '__invoke'])->name('personal.liked.index');
+        Route::delete('/{post}', [DeleteIndexController::class, '__invoke'])->name('personal.liked.delete');
+    });
+    Route::prefix('comment')->group(function () {
+        Route::get('/', [CommentIndexController::class, '__invoke'])->name('personal.comment.index');
+    });
+});
 
 Route::prefix('admin')->middleware(['auth', 'admin', 'verified'])->group(function () {
     Route::get('/', [AdminIndexController::class, '__invoke'])->name('admin.home');
