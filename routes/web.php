@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\Personal\Comment\DeleteCommentIndexController;
+use App\Http\Controllers\Personal\Comment\EditCommentIndexController;
+use App\Http\Controllers\Personal\Comment\UpdateCommentIndexController;
 use App\Http\Controllers\Personal\Liked\DeleteIndexController;
 use App\Http\Controllers\Admin\Category\{CategoryController,
     CreateController,
@@ -53,7 +56,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 //Route::group(['namespace' => 'Main'], function () {
-Route::get('/', [IndexController::class, '__invoke']);
+Route::get('/', [IndexController::class, '__invoke'])->name('main.index');
 
 Route::prefix('personal')->middleware(['auth', 'verified'])->group(function () {
     Route::get('/', [PersonalIndexController::class, '__invoke'])->name('personal.home');
@@ -63,6 +66,9 @@ Route::prefix('personal')->middleware(['auth', 'verified'])->group(function () {
     });
     Route::prefix('comment')->group(function () {
         Route::get('/', [CommentIndexController::class, '__invoke'])->name('personal.comment.index');
+        Route::get('/{comment}/edit', [EditCommentIndexController::class, '__invoke'])->name('personal.comment.edit');
+        Route::patch('/{comment}', [UpdateCommentIndexController::class, '__invoke'])->name('personal.comment.update');
+        Route::delete('/{comment}', [DeleteCommentIndexController::class, '__invoke'])->name('personal.comment.delete');
     });
 });
 

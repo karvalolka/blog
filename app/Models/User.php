@@ -10,7 +10,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
-use mysql_xdevapi\CollectionAdd;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
@@ -66,5 +65,8 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->belongsToMany(Post::class, 'post_user_likes', 'user_id', 'post_id');
     }
-
+public function comments()
+{
+    return $this-> hasMany(Comment::class, 'user_id', 'id');
+}
 }
