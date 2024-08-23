@@ -3,11 +3,8 @@
 namespace App\Http\Controllers\Personal\Main;
 
 use App\Http\Controllers\Controller;
-use App\Models\Category;
-use App\Models\Post;
-use App\Models\Tag;
-use App\Models\User;
-use Illuminate\Http\Request;
+use App\Models\Comment;
+use App\Models\PostUserLike;
 
 class PersonalIndexController extends Controller
 {
@@ -16,6 +13,11 @@ class PersonalIndexController extends Controller
      */
     public function __invoke()
     {
-        return view('personal.main.index');
+        $userId = auth()->id();
+        $data = [
+            'commentsCount' => Comment::where('user_id', $userId)->count(),
+            'postUserLikedCount' => PostUserLike::where('user_id', $userId)->count(),
+        ];
+        return view('personal.main.index', compact('data'));
     }
 }

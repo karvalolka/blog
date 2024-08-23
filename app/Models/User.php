@@ -25,6 +25,11 @@ class User extends Authenticatable implements MustVerifyEmail
             self::ROLE_READER => 'Читатель',
         ];
     }
+    public function isAdmin()
+    {
+        return $this->role === self::ROLE_ADMIN;
+    }
+
     /**
      * The attributes that are mass assignable.
      *
@@ -69,4 +74,5 @@ public function comments()
 {
     return $this-> hasMany(Comment::class, 'user_id', 'id');
 }
+
 }

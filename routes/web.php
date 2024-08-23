@@ -1,6 +1,9 @@
 <?php
 
 use App\Http\Controllers\Personal\Comment\DeleteCommentIndexController;
+use App\Http\Controllers\Post\IndexController as PIndexController;
+use App\Http\Controllers\Post\ShowController as PShowController;
+use App\Http\Controllers\Post\Comment\StoreController as PCStoreController;
 use App\Http\Controllers\Personal\Comment\EditCommentIndexController;
 use App\Http\Controllers\Personal\Comment\UpdateCommentIndexController;
 use App\Http\Controllers\Personal\Liked\DeleteIndexController;
@@ -55,15 +58,25 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-//Route::group(['namespace' => 'Main'], function () {
+
 Route::get('/', [IndexController::class, '__invoke'])->name('main.index');
+Route::prefix('posts')->group(function () {
+    Route::get('/', [PIndexController::class, '__invoke'])->name('post.index');
+    Route::get('/{post}', [PShowController::class, '__invoke'])->name('post.show');
+
+    Route::prefix('{post}/comments')->group(function () {
+        Route::post('/', [PCStoreController::class, '__invoke'])->name('post.comment.store');
+    });
+});
 
 Route::prefix('personal')->middleware(['auth', 'verified'])->group(function () {
     Route::get('/', [PersonalIndexController::class, '__invoke'])->name('personal.home');
+
     Route::prefix('liked')->group(function () {
         Route::get('/', [LikedIndexController::class, '__invoke'])->name('personal.liked.index');
         Route::delete('/{post}', [DeleteIndexController::class, '__invoke'])->name('personal.liked.delete');
     });
+
     Route::prefix('comment')->group(function () {
         Route::get('/', [CommentIndexController::class, '__invoke'])->name('personal.comment.index');
         Route::get('/{comment}/edit', [EditCommentIndexController::class, '__invoke'])->name('personal.comment.edit');
