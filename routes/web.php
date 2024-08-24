@@ -4,6 +4,7 @@ use App\Http\Controllers\Personal\Comment\DeleteCommentIndexController;
 use App\Http\Controllers\Post\IndexController as PIndexController;
 use App\Http\Controllers\Post\ShowController as PShowController;
 use App\Http\Controllers\Post\Comment\StoreController as PCStoreController;
+use App\Http\Controllers\Post\Like\StoreController as PLStoreController;
 use App\Http\Controllers\Personal\Comment\EditCommentIndexController;
 use App\Http\Controllers\Personal\Comment\UpdateCommentIndexController;
 use App\Http\Controllers\Personal\Liked\DeleteIndexController;
@@ -41,6 +42,8 @@ use App\Http\Controllers\Admin\User\{CreateController as UserCreateController,
     UserController
 };
 use App\Http\Controllers\Main\IndexController;
+use App\Http\Controllers\Category\IndexController as CategoryIndexController;
+use App\Http\Controllers\Category\Post\IndexController as CPIndexController;
 use App\Http\Controllers\Personal\Comment\CommentIndexController;
 use App\Http\Controllers\Personal\Liked\LikedIndexController;
 use App\Http\Controllers\Personal\Main\PersonalIndexController;
@@ -66,6 +69,15 @@ Route::prefix('posts')->group(function () {
 
     Route::prefix('{post}/comments')->group(function () {
         Route::post('/', [PCStoreController::class, '__invoke'])->name('post.comment.store');
+    });
+    Route::prefix('{post}/likes')->group(function () {
+        Route::post('/', [PLStoreController::class, '__invoke'])->name('post.like.store');
+    });
+});
+Route::prefix('categories')->group(function () {
+    Route::get('/', [CategoryIndexController::class, '__invoke'])->name('category.index');
+    Route::prefix('{category}/posts')->group(function () {
+        Route::get('/', [CPIndexController::class, '__invoke'])->name('category.post.index');
     });
 });
 

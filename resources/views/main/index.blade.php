@@ -39,6 +39,7 @@
                                     <a href="#!" class="blog-post-permalink">
                                         <h6 class="blog-post-title">{{$post->title}}</h6>
                                     </a>
+
                                 </div>
                             @endforeach
                         </div>
@@ -56,6 +57,7 @@
                                         <div class="media-body">
                                             <h6 class="post-title">{{$post->title}}</h6>
                                         </div>
+
                                     </a>
                                 </li>
                             @endforeach
