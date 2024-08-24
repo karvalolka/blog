@@ -30,33 +30,37 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{route('category.index')}}">Категории</a>
                     </li>
-                    <li class="nav-item">
-                        @auth()
-                            <div class="d-flex align-items-center">
 
-                                @if(auth()->user()->isAdmin())
-                                    <a class="nav-link" href="{{ route('admin.home') }}">Админ-панель</a>
-                                    <a class="nav-link" href="{{ route('personal.home') }}">Личный кабинет</a>
-                                @else
-                                    <a class="nav-link" href="{{ route('personal.home') }}">Личный кабинет</a>
-                                @endif
+                    @auth()
+                        @if(auth()->user()->isAdmin())
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('admin.home') }}">Админ-панель</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('personal.home') }}">Личный кабинет</a>
+                            </li>
+                        @else
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('personal.home') }}">Личный кабинет</a>
+                            </li>
+                        @endif
 
-                                <ul class="navbar-nav">
-                                    <li class="nav-item d-flex align-items-center">
-                                        <p class="mb-0 flex-grow-1 pr-2">{{ auth()->user()->name }}</p>
-                                        <form action="{{ route('logout') }}" method="post">
-                                            @csrf
-                                            <input class="btn btn-outline-primary" type="submit" value="Выйти">
-                                        </form>
-                                    </li>
-                                </ul>
-                            </div>
-                        @endauth
+                        <li class="nav-item d-flex">
+                            <p class="mb-0 flex-grow-1 pr-2">{{ auth()->user()->name }}</p>
+                            <form action="{{ route('logout') }}" method="post">
+                                @csrf
+                                <input class="btn btn-outline-primary" type="submit" value="Выйти">
+                            </form>
+                        </li>
 
-                        @guest
-                            <a class="nav-link" href="{{route('personal.home')}}">Войти</a>
-                        @endguest
-                    </li>
+                    @endauth
+
+                    @guest
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{route('login')}}">Войти</a>
+                        </li>
+                    @endguest
+
                 </ul>
             </div>
         </nav>

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Personal\Comment\DeleteCommentIndexController;
 use App\Http\Controllers\Post\IndexController as PIndexController;
 use App\Http\Controllers\Post\ShowController as PShowController;
